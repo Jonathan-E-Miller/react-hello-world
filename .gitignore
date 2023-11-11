@@ -1,46 +1,23 @@
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# Dependency directories
+# dependencies
 /node_modules
+/.pnp
+.pnp.js
 
-# Optional npm cache directory
-/.npm
+# testing
+/coverage
 
-# Compiled files
-/dist
+# production
 /build
 
-# Log files
-/logs
-
-# Environment files
+# misc
+.DS_Store
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# .env*.local files should be ignored
-.env*.local
-
-# .env files are used for environment variables and should not be committed
-.env
-
-# Yarn
-.yarn
-.yarnrc
-.yarnignore
-
-# Testing
-/coverage
-
-# .vscode folder
-.vscode
-
-# macOS
-.DS_Store
-
-# Windows
-Thumbs.db
-This .gitignore file covers common directories and files that you typically don't want to include in your version control repository. Keep in mind that the specifics might vary depending on your project structure and the tools you use.
-
-Feel free to customize it based on your project's needs. For example, if you're using a specific code editor or IDE, you might want to add entries to ignore their configuration files.
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
