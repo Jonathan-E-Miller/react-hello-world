@@ -3,12 +3,20 @@ import Square from './Square';
 import { useState  } from 'react';
 
 function Board() {
+  const [xIsPlaying, setXIsPlaying] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
 function clickHandler(index) {
   const nextSquares = squares.slice();
-  nextSquares[index] = "X";
+
+  // return early if square already has a value. 
+  if (nextSquares[index]) {
+    return;
+  }
+
+  xIsPlaying ? nextSquares[index] = 'X' : nextSquares[index] = 'O';
   setSquares(nextSquares);
+  setXIsPlaying(!xIsPlaying);
 }
 
   return (
