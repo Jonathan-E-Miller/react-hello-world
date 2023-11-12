@@ -1,5 +1,9 @@
-function Square({ value }) {
-    return <button className="square">{value}</button>;
-  }
+function Square({value, handler}) {
+    return(
+    <button className="square" onClick={handler}>
+        {value}
+    </button>
+    );
+}
 
-  export default Square
+  export default Square;
