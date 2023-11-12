@@ -1,28 +1,25 @@
 import './App.css';
 import Square from './Square';
-import { useState  } from 'react';
+import { useState } from 'react';
 
 function Board() {
   const [xIsPlaying, setXIsPlaying] = useState(true);
   const [squares, setSquares] = useState(Array(9).fill(null));
 
-function clickHandler(index) {
-  const nextSquares = squares.slice();
+  const winner = calculateWinner(squares);
 
-  // return early if square already has a value. 
-  if (nextSquares[index]) {
-    return;
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (xIsPlaying ? "X" : "O");
   }
-
-  xIsPlaying ? nextSquares[index] = 'X' : nextSquares[index] = 'O';
-  setSquares(nextSquares);
-  setXIsPlaying(!xIsPlaying);
-}
 
   return (
     // because we have multiple elements being returned,
     // we need to wrap in <> which is shorthand for <React.Fragment>
     <>
+      <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} handler={() => clickHandler(0)} />
         <Square value={squares[1]} handler={() => clickHandler(1)} />
@@ -34,12 +31,46 @@ function clickHandler(index) {
         <Square value={squares[5]} handler={() => clickHandler(5)} />
       </div>
       <div className="board-row">
-        <Square value={squares[6]} handler={() => clickHandler(6)}/>
-        <Square value={squares[7]} handler={() => clickHandler(7)}/>
-        <Square value={squares[8]} handler={() => clickHandler(8)}/>
+        <Square value={squares[6]} handler={() => clickHandler(6)} />
+        <Square value={squares[7]} handler={() => clickHandler(7)} />
+        <Square value={squares[8]} handler={() => clickHandler(8)} />
       </div>
     </>
   );
+
+  function clickHandler(index) {
+    const nextSquares = squares.slice();
+
+    // return early if square already has a value. 
+    if (nextSquares[index]) {
+      return;
+    }
+
+    xIsPlaying ? nextSquares[index] = 'X' : nextSquares[index] = 'O';
+    setSquares(nextSquares);
+    setXIsPlaying(!xIsPlaying);
+  }
 }
+
+function calculateWinner(squares) {
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+  for (let i = 0; i < lines.length; i++) {
+    const [a, b, c] = lines[i];
+    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+      return squares[a];
+    }
+  }
+  return null;
+}
+
 
 export default Board;
